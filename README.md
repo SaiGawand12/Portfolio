@@ -55,9 +55,9 @@ To deploy, push changes to the `main` branch, and Netlify will automatically bui
 
 ## 🤝 Connect with Me
 📧 **Email:** [saigawand90@gmail.com](mailto:your.email@example.com)
-🌍 **Website:** [your-portfolio.com](https://cyberfun.netlify.app/)
-🔗 **LinkedIn:** [linkedin.com/in/yourprofile](https://www.linkedin.com/in/sai-gawand-aa719025b/)
-🐦 **Twitter:** [@yourhandle](https://x.com/saigawand90)
+🌍 **Website:** [https://cyberfun.netlify.app/](https://cyberfun.netlify.app/)
+🔗 **LinkedIn:** [Sai Gawand](https://www.linkedin.com/in/sai-gawand-aa719025b/)
+🐦 **Twitter:** [@Sai Gawand](https://x.com/saigawand90)
 
 ---
 💡 *Feel free to fork and modify this portfolio for your own use!* 🎨
