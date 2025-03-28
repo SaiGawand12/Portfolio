@@ -1,0 +1,109 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 10, 10, 20;
+  --neon-glow: 0 0 10px rgba(0, 255, 255, 0.5),
+               0 0 20px rgba(0, 255, 255, 0.3),
+               0 0 30px rgba(0, 255, 255, 0.1);
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 180 100% 50%;
+    --card: 0 0% 3%;
+    --card-foreground: 180 100% 50%;
+    --popover: 0 0% 3%;
+    --popover-foreground: 180 100% 50%;
+    --primary: 180 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 315 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --muted: 0 0% 10%;
+    --muted-foreground: 180 100% 40%;
+    --accent: 315 100% 50%;
+    --accent-foreground: 0 0% 0%;
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 0%;
+    --border: 180 100% 20%;
+    --input: 180 100% 20%;
+    --ring: 180 100% 50%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background: linear-gradient(to bottom,
+      rgb(var(--background-start-rgb)),
+      rgb(var(--background-end-rgb)));
+    min-height: 100vh;
+  }
+}
+
+.neon-text {
+  text-shadow: var(--neon-glow);
+}
+
+.neon-border {
+  box-shadow: var(--neon-glow);
+}
+
+.glitch {
+  position: relative;
+}
+
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  clip: rect(0, 0, 0, 0);
+}
+
+.glitch::before {
+  left: 2px;
+  text-shadow: -2px 0 #ff00ff;
+  animation: glitch-anim-1 2s infinite linear alternate-reverse;
+}
+
+.glitch::after {
+  left: -2px;
+  text-shadow: 2px 0 #00ffff;
+  animation: glitch-anim-2 3s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim-1 {
+  0% { clip: rect(20px, 9999px, 21px, 0); }
+  100% { clip: rect(25px, 9999px, 26px, 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip: rect(25px, 9999px, 26px, 0); }
+  100% { clip: rect(20px, 9999px, 21px, 0); }
+}
+
+.skill-bar {
+  @apply h-2 bg-muted rounded-full overflow-hidden;
+}
+
+.skill-progress {
+  @apply h-full bg-primary;
+  animation: fillBar 1.5s ease-in-out;
+}
+
+@keyframes fillBar {
+  from { width: 0; }
+  to { width: var(--progress); }
+}
