@@ -3,24 +3,23 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { getGithubUser, getGithubRepos } from '@/lib/github';
-import { Terminal, Github, ExternalLink, Code2, Download, Linkedin, Twitter, Mail, BookOpen, Cpu } from 'lucide-react';
-import { Eye } from "lucide-react";
+import { Terminal, Github, ExternalLink, Code2, Download, Linkedin, Twitter, Mail, BookOpen, Cpu, Menu, X, Eye } from 'lucide-react';
 import Image from 'next/image';
 
 const GITHUB_USERNAME = 'SaiGawand12';
-const bio = "I am a Cybersecurity student at RV University with expertise in network security, penetration testing, threat intelligence, and cloud security. I also have experience in Full Stack Development, UI/UX, and AR/VR. Passionate about building secure, user-friendly applications, I’m seeking opportunities to grow and collaborate. Let’s connect!";
+const bio = "I am a Cybersecurity student at RV University with expertise in network security, penetration testing, threat intelligence, and cloud security. I also have experience in Full Stack Development, UI/UX, and AR/VR. Passionate about building secure, user-friendly applications, I'm seeking opportunities to grow and collaborate. Let's connect!";
 
 const skills = [
   { name: "JavaScript", level: 90 },
-  { name: "React", level: 85 },
+  { name: "React", level: 90 },
   { name: "UI/UX", level: 90 },
   { name: "Cyber Security", level: 90 },
   { name: "Cloud Computing", level: 90 },
   { name: "AR/VR", level: 85 },
   { name: "Ethical Hacking", level: 90 },
-  { name: "Node.js", level: 80 },
-  { name: "TypeScript", level: 75 },
-  { name: "Python", level: 70 },
+  { name: "Node.js", level: 95 },
+  { name: "TypeScript", level: 95 },
+  { name: "Python", level: 90 },
 ];
 
 const education = [
@@ -70,17 +69,18 @@ const certificates = [
   },
 ];
 
-
 export default function Home() {
   const [user, setUser] = useState<any>(null);
   const [repos, setRepos] = useState<any[]>([]);
   const [activeSection, setActiveSection] = useState('home');
-  const [visibleRepos, setVisibleRepos] = useState(3); // Show 6 repos initially
+  const [visibleRepos, setVisibleRepos] = useState(3);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false); // Close menu after clicking
     }
   };
 
@@ -95,8 +95,16 @@ export default function Home() {
   }, []);
 
   const loadMore = () => {
-  setVisibleRepos((prev) => Math.min(prev + 6, repos.length));
-};
+    setVisibleRepos((prev) => Math.min(prev + 6, repos.length));
+  };
+
+  const navigationItems = [
+    { id: 'home', label: 'HOME' },
+    { id: 'about', label: 'ABOUT' },
+    { id: 'projects', label: 'PROJECTS' },
+    { id: 'certificates', label: 'CERTIFICATES' },
+    { id: 'contact', label: 'CONTACT' }
+  ];
 
   return (
     <>
@@ -108,14 +116,10 @@ export default function Home() {
               <Terminal size={24} />
               <span className="text-primary neon-text font-bold">CYBER_DEV</span>
             </button>
-            <div className="flex space-x-8">
-              {[
-                { id: 'home', label: 'HOME' },
-                { id: 'about', label: 'ABOUT' },
-                { id: 'projects', label: 'PROJECTS' },
-                {id : 'certificates', label: 'CERTIFICATES'},
-                { id: 'contact', label: 'CONTACT' },
-              ].map((item) => (
+
+            {/* Desktop Navigation */}
+            <div className="hidden md:flex space-x-8">
+              {navigationItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
@@ -127,7 +131,39 @@ export default function Home() {
                 </button>
               ))}
             </div>
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="md:hidden text-primary"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
           </div>
+
+          {/* Mobile Navigation */}
+          {isMenuOpen && (
+            <motion.div 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              className="md:hidden bg-black/90 border-t border-primary/20 py-4"
+            >
+              <div className="flex flex-col space-y-4">
+                {navigationItems.map((item) => (
+                  <button
+                    key={item.id}
+                    onClick={() => scrollToSection(item.id)}
+                    className={`text-sm uppercase tracking-wider transition-colors px-4 py-2 ${
+                      activeSection === item.id ? 'text-primary neon-text' : 'text-muted-foreground hover:text-primary'
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </motion.div>
+          )}
         </div>
       </nav>
 
@@ -171,7 +207,7 @@ export default function Home() {
               <a href="https://x.com/saigawand90" target="_blank" rel="noopener noreferrer" className="text-primary hover:text-secondary transition-colors">
                 <Twitter className="w-6 h-6" />
               </a>
-              <a href="mailto:your.saigawand90@gmail.com" className="text-primary hover:text-secondary transition-colors">
+              <a href="mailto:saigawand90@gmail.com" className="text-primary hover:text-secondary transition-colors">
                 <Mail className="w-6 h-6" />
               </a>
             </motion.div>
@@ -183,16 +219,17 @@ export default function Home() {
               transition={{ delay: 0.9 }}
               className="mt-8"
             >
-            <div className="mt-8">
-            <a href="SaiGawand_Cybersecurity_Resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 bg-primary/90 text-white rounded-lg hover:bg-secondary/90 transition duration-300 shadow-md">
-              <Eye className="w-5 h-5 mr-2" /> View CV
-            </a>
-          </div>
-        </motion.div>
-        </section>
+              <a
+                href="SaiGawand_Cybersecurity_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                View="Sai_Gawand_Resume.pdf"
+                className="inline-flex items-center px-6 py-3 bg-primary text-black rounded-lg hover:bg-secondary"
+              >
+                <Eye className="w-5 h-5 mr-2" /> View CV
+              </a>
+            </motion.div>
+          </section>
 
           {/* About Section */}
           <section id="about" className="mb-16">
@@ -274,7 +311,7 @@ export default function Home() {
               Latest Projects
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-             {repos.slice(0, visibleRepos).map((repo, index) => (
+              {repos.slice(0, visibleRepos).map((repo, index) => (
                 <motion.div
                   key={repo.id}
                   initial={{ opacity: 0, y: 20 }}
@@ -293,36 +330,38 @@ export default function Home() {
                     <div className="flex space-x-4">
                       {/* Live Demo Button (If Available) */}
                       {repo.homepage && (
-                  <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1 text-green-400 hover:text-green-300 transition-all">  
-                    <ExternalLink className="w-4 h-4" />
-                    <span>Live</span>
-                  </a>
-                  )}
-                <a
-                      href={repo.html_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center space-x-1 text-primary hover:text-secondary transition-all">
-                     <Github className="w-4 h-4" />
-                     <span>Code</span>
-                    </a>
+                        <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1 text-green-400 hover:text-green-300 transition-all">  
+                          <ExternalLink className="w-4 h-4" />
+                          <span>Live</span>
+                        </a>
+                      )}
+                      <a
+                        href={repo.html_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center space-x-1 text-primary hover:text-secondary transition-all"
+                      >
+                        <Github className="w-4 h-4" />
+                        <span>Code</span>
+                      </a>
+                    </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
               ))}
             </div>
 
             {visibleRepos < repos.length && (
-            <motion.button
-              onClick={loadMore}
-              className="neon-border px-6 py-3 rounded-lg mx-auto mt-12 block hover:bg-cyan-500/10 border-2 border-red-500">
-              Load More
-            </motion.button>
-          )}
-         </section>
+              <motion.button
+                onClick={loadMore}
+                className="neon-border px-6 py-3 rounded-lg mx-auto mt-12 block hover:bg-cyan-500/10 border-2 border-red-500"
+              >
+                Load More
+              </motion.button>
+            )}
+          </section>
 
           {/* Certificates */}
-          <section id ="certificates" className="mb-16">
+          <section id="certificates" className="mb-16">
             <h2 className="text-3xl font-bold mb-8 neon-text">Certifications</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {certificates.map((cert, index) => (
@@ -331,16 +370,17 @@ export default function Home() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 * index }}
-                  className="bg-card p-6 rounded-lg hover:neon-border transition-all duration-300">
-                <h3 className="text-xl font-bold">{cert.title}</h3>
-                <p className="text-muted-foreground">{cert.issuer}</p>
+                  className="bg-card p-6 rounded-lg hover:neon-border transition-all duration-300"
+                >
+                  <h3 className="text-xl font-bold">{cert.title}</h3>
+                  <p className="text-muted-foreground">{cert.issuer}</p>
                   <img
                     src={cert.image}
                     alt={cert.title}
                     className="mt-4 rounded-lg shadow-md"
-                    />
+                  />
                 </motion.div>
-          ))}
+              ))}
             </div>
           </section>
 
