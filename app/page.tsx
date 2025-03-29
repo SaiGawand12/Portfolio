@@ -76,6 +76,13 @@ export default function Home() {
   const [visibleRepos, setVisibleRepos] = useState(3);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+   const handleEmailClick = () => {
+    const subject = "Inquiry from Portfolio Website";
+    const body = `Hi Sai,\n\nI came across your portfolio and would like to connect regarding...\n\nBest regards,\n[Your Name]`;
+    const mailtoLink = `mailto:saigawand90@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = mailtoLink;
+  };
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -393,13 +400,13 @@ export default function Home() {
           >
             <h2 className="text-3xl font-bold mb-8 neon-text">Get In Touch</h2>
             <div className="flex justify-center space-x-6">
-              <a
-                href="mailto:saigawand90@gmail.com"
+              <button
+                onClick={handleEmailClick}
                 className="inline-flex items-center px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-secondary transition-colors neon-border"
               >
                 <Mail className="w-5 h-5 mr-2" />
                 Send Email
-              </a>
+              </button>
               <a
                 href={`https://github.com/${GITHUB_USERNAME}`}
                 target="_blank"
