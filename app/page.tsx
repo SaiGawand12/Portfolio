@@ -251,7 +251,7 @@ export default function Home() {
                   {user?.avatar_url && (
                     <div className="relative w-48 h-48 mb-6 rounded-full overflow-hidden neon-border">
                       <Image
-                        src={user.avatar_url}
+                        src="https://media.licdn.com/dms/image/v2/D5603AQF7Ou_AlbiGqQ/profile-displayphoto-shrink_800_800/B56ZXllM.aGQAg-/0/1743313490425?e=1749081600&v=beta&t=aeonoKrdt4B53LIjqLD2owZi5y02Z6H4WG7UEBMfmwc"
                         alt="Profile"
                         fill
                         className="object-cover"
