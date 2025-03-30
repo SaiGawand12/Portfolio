@@ -3,7 +3,7 @@
 Welcome to my **personal portfolio website**, showcasing my work, projects, and experience in **Cybersecurity, Web Development, and Machine Learning**. This site is built using **Next.js, Tailwind CSS, and Framer Motion**, with a responsive design for seamless viewing across devices.
 
 ## 🌐 Live Demo
-🔗 [Visit My Portfolio](https://cyberfun.netlify.app/) *(Replace with actual deployed URL)*
+🔗 [Visit My Portfolio](https://cyberfun.netlify.app/)
 
 ## 📂 Project Structure
 ```
@@ -23,12 +23,12 @@ Portfolio/
 - **Fully Responsive** design for desktop, tablet, and mobile.
 - **Projects Showcase** with descriptions and links.
 - **Resume Viewer & Download** (View CV as PDF without downloading).
-- **Dark Mode Support** (if applicable).
+- **Dark Mode Support** 
 
 ## 🛠️ Tech Stack
 - **Frontend**: Next.js, React, Tailwind CSS
 - **Animations**: Framer Motion
-- **Deployment**: Netlify (or Vercel, GitHub Pages, etc.)
+- **Deployment**: Netlify 
 
 ## 📥 Installation & Setup
 1. **Clone the repository**
