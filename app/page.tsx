@@ -76,7 +76,7 @@ export default function Home() {
   const [visibleRepos, setVisibleRepos] = useState(3);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-   const handleEmailClick = () => {
+  const handleEmailClick = () => {
     const subject = "Inquiry from Portfolio Website";
     const body = `Hi Sai,\n\nI came across your portfolio and would like to connect regarding...\n\nBest regards,\n[Your Name]`;
     const mailtoLink = `mailto:saigawand90@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
@@ -230,6 +230,7 @@ export default function Home() {
                 href="SaiGawand_Cybersecurity_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
+                View="Sai_Gawand_Resume.pdf"
                 className="inline-flex items-center px-6 py-3 bg-primary text-black rounded-lg hover:bg-secondary"
               >
                 <Eye className="w-5 h-5 mr-2" /> View CV
@@ -251,7 +252,7 @@ export default function Home() {
                   {user?.avatar_url && (
                     <div className="relative w-48 h-48 mb-6 rounded-full overflow-hidden neon-border">
                       <Image
-                        src="https://media.licdn.com/dms/image/v2/D5603AQF7Ou_AlbiGqQ/profile-displayphoto-shrink_800_800/B56ZXllM.aGQAg-/0/1743313490425?e=1749081600&v=beta&t=aeonoKrdt4B53LIjqLD2owZi5y02Z6H4WG7UEBMfmwc"
+                        src={user.avatar_url}
                         alt="Profile"
                         fill
                         className="object-cover"
@@ -281,7 +282,7 @@ export default function Home() {
                         <div className="skill-bar">
                           <div
                             className="skill-progress"
-                            style={{ '--progress': `${skill.level}%` } as any}
+                            style={{ '--progress': `${skill.level}%` } as React.CSSProperties}
                           />
                         </div>
                       </div>
