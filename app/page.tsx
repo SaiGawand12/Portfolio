@@ -6,6 +6,7 @@ import { TypeAnimation } from 'react-type-animation';
 import { getGithubUser, getGithubRepos } from '@/lib/github';
 import { Terminal, Github, ExternalLink, Code2, Download, Linkedin, Twitter, Mail, BookOpen, Cpu, Menu, X, Eye, Briefcase } from 'lucide-react';
 import Image from 'next/image';
+import Background3D from '@/components/Background3D';
 
 const GITHUB_USERNAME = 'SaiGawand12';
 const bio = "I am a Cybersecurity student at RV University with expertise in network security, penetration testing, threat intelligence, and cloud security. I also have experience in Full Stack Development, UI/UX, and AR/VR. Passionate about building secure, user-friendly applications, I'm seeking opportunities to grow and collaborate. Let's connect!";
@@ -126,6 +127,24 @@ export default function Home() {
       setRepos(reposData);
     }
     fetchGithubData();
+
+    const handleScroll = () => {
+      const sections = ['home', 'about', 'projects', 'certificates', 'contact'];
+      const currentSection = sections.find(section => {
+        const element = document.getElementById(section);
+        if (element) {
+          const rect = element.getBoundingClientRect();
+          return rect.top <= 100 && rect.bottom >= 100;
+        }
+        return false;
+      });
+      if (currentSection) {
+        setActiveSection(currentSection);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const loadMore = () => {
@@ -209,12 +228,13 @@ export default function Home() {
           className="max-w-6xl mx-auto"
         >
           {/* Hero Section */}
-          <section id="home" className="mb-16 text-center">
+          <section id="home" className="relative mb-16 text-center min-h-screen flex flex-col justify-center">
+            <Background3D />
             <motion.h1
               className="text-6xl font-bold mb-4 neon-text glitch"
-              data-text={user?.name || "CYBER_DEV"}
+              data-text={user?.name || "SAI GAWAND"}
             >
-              {user?.name || "CYBER_DEV"}
+              {user?.name || "SAI GAWAND"}
             </motion.h1>
             <motion.div
               initial={{ opacity: 0 }}
@@ -270,10 +290,49 @@ export default function Home() {
                 href="SaiGawand_Cybersecurity_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center px-6 py-3 bg-primary text-black rounded-lg hover:bg-secondary"
+                className="inline-flex items-center px-6 py-3 bg-primary text-black rounded-lg hover:bg-secondary transition-colors"
               >
                 <Eye className="w-5 h-5 mr-2" /> View CV
               </a>
+            </motion.div>
+
+            {/* Scroll Down Arrow */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 1.1 }}
+              className="scroll-down group"
+              onClick={() => scrollToSection('about')}
+            >
+              <motion.div
+                animate={{
+                  y: [0, 10, 0],
+                  scale: [1, 1.1, 1],
+                }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                className="relative"
+              >
+                <svg
+                  width="40"
+                  height="40"
+                  viewBox="0 0 24 24"
+                  className="text-primary group-hover:text-secondary transition-colors"
+                >
+                  <path
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    d="M12 3v18m0 0l-7-7m7 7l7-7"
+                    className="group-hover:stroke-[3]"
+                  />
+                </svg>
+                <div className="absolute inset-0 animate-pulse bg-primary/20 rounded-full filter blur-xl group-hover:bg-secondary/20 transition-colors"></div>
+              </motion.div>
             </motion.div>
           </section>
 
@@ -488,6 +547,7 @@ export default function Home() {
           </motion.section>
         </motion.div>
       </main>
+
       {/* Footer */}
       <footer className="border-t border-cyan-500/20 py-8 text-center text-gray-400">
         <p>© 2025 Sai Gawand • All rights reserved</p>
