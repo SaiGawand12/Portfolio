@@ -100,10 +100,6 @@
 
 .skill-progress {
   @apply h-full bg-primary;
-  animation: fillBar 1.5s ease-in-out;
-}
-
-@keyframes fillBar {
-  from { width: 0; }
-  to { width: var(--progress); }
+  width: var(--progress);
+  transition: width 1.5s ease-in-out;
 }
