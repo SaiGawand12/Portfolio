@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
+import { TypeAnimation } from 'react-type-animation';
 import { getGithubUser, getGithubRepos } from '@/lib/github';
 import { Terminal, Github, ExternalLink, Code2, Download, Linkedin, Twitter, Mail, BookOpen, Cpu, Menu, X, Eye, Briefcase } from 'lucide-react';
-import { TypeAnimation } from 'react-type-animation';
 import Image from 'next/image';
 
 const GITHUB_USERNAME = 'SaiGawand12';
@@ -216,14 +216,27 @@ export default function Home() {
             >
               {user?.name || "CYBER_DEV"}
             </motion.h1>
-            <motion.p
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
               className="text-xl text-cyan-400"
             >
-              Full Stack Developer // Aspiring Cybersecurity Professional // Code Artist
-            </motion.p>
+              <TypeAnimation
+                sequence={[
+                  'Full Stack Developer',
+                  1000,
+                  'Aspiring Cybersecurity Professional',
+                  1000,
+                  'Code Artist',
+                  1000,
+                ]}
+                wrapper="span"
+                speed={50}
+                repeat={Infinity}
+                className="inline-block"
+              />
+            </motion.div>
             
             {/* Social Links */}
             <motion.div
