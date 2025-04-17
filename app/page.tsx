@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { getGithubUser, getGithubRepos } from '@/lib/github';
-import { Terminal, Github, ExternalLink, Code2, Download, Linkedin, Twitter, Mail, BookOpen, Cpu, Menu, X, Eye } from 'lucide-react';
+import { Terminal, Github, ExternalLink, Code2, Download, Linkedin, Twitter, Mail, BookOpen, Cpu, Menu, X, Eye, Briefcase } from 'lucide-react';
+import { TypeAnimation } from 'react-type-animation';
 import Image from 'next/image';
 
 const GITHUB_USERNAME = 'SaiGawand12';
@@ -29,6 +30,32 @@ const education = [
     year: "2022-2026",
     discription: "Building expertise in Cybersecurity, Full Stack Development, UI/UX, and AR/VR. Gaining hands-on experience in penetration testing, cloud security, and secure application development. Actively working on projects that apply theoretical knowledge to real-world challenges."
   },
+];
+
+const experiences = [
+  {
+    title: "Cybersecurity Intern",
+    company: "CodeAlpha",
+    period: "Apr 2025 - Present",
+    description: [
+      "Conducted vulnerability assessments and penetration testing on web applications",
+      "Implemented security monitoring solutions using SIEM tools",
+      "Developed security awareness training materials for employees",
+      "Assisted in incident response and threat hunting activities"
+    ]
+  },
+  {
+    title: "Web Development Intern",
+    company: "CodSoft",
+    period: "Apr 2025 - Present",
+    description: [
+      "Developing and improving responsive web applications using HTML, CSS, JavaScript, and React.",
+      " Implementing modern UI/UX designs and ensuring cross-browser compatibility.",
+      " Working on real-world projects, including frontend development and API integration.",
+      "Collaborating with a team to build scalable and efficient web solutions.",
+      "Gaining hands-on experience with Git, GitHub, and deployment processes."
+    ]
+  }
 ];
 
 const certificates = [
@@ -87,7 +114,7 @@ export default function Home() {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false); // Close menu after clicking
+      setIsMenuOpen(false);
     }
   };
 
@@ -310,6 +337,34 @@ export default function Home() {
             </motion.div>
           </section>
 
+          {/* Experience Section */}
+          <section id="experience" className="mb-16">
+            <h2 className="text-3xl font-bold mb-8 neon-text">
+              <Briefcase className="inline mr-2" />
+              Experience
+            </h2>
+            <div className="space-y-6">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 * index }}
+                  className="bg-card p-6 rounded-lg hover:neon-border transition-all duration-300"
+                >
+                  <h3 className="text-xl font-bold text-primary">{exp.title}</h3>
+                  <p className="text-secondary mb-2">{exp.company}</p>
+                  <p className="text-muted-foreground mb-4">{exp.period}</p>
+                  <ul className="list-disc list-inside space-y-2">
+                    {exp.description.map((item, idx) => (
+                      <li key={idx} className="text-muted-foreground">{item}</li>
+                    ))}
+                  </ul>
+                </motion.div>
+              ))}
+            </div>
+          </section>
+
           {/* Projects Section */}
           <section id="projects" className="mb-16">
             <h2 className="text-3xl font-bold mb-8 neon-text">
@@ -383,7 +438,7 @@ export default function Home() {
                   <img
                     src={cert.image}
                     alt={cert.title}
-                    className="mt-4 rounded-lg shadow-md"
+                    className="mt-4 rounded-lg shadow-md certificate-image"
                   />
                 </motion.div>
               ))}
