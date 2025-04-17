@@ -6,9 +6,9 @@
   --foreground-rgb: 0, 255, 255;
   --background-start-rgb: 0, 0, 0;
   --background-end-rgb: 10, 10, 20;
-  --neon-glow: 0 0 10px rgba(0, 255, 255, 0.5),
-               0 0 20px rgba(0, 255, 255, 0.3),
-               0 0 30px rgba(0, 255, 255, 0.1);
+  --neon-glow: 0 0 5px rgba(0, 255, 255, 0.3),
+               0 0 10px rgba(0, 255, 255, 0.2),
+               0 0 15px rgba(0, 255, 255, 0.1);
 }
 
 @layer base {
@@ -102,4 +102,13 @@
   @apply h-full bg-primary;
   width: var(--progress);
   transition: width 1.5s ease-in-out;
+}
+
+.certificate-image {
+  filter: brightness(0.85) contrast(1.1);
+  transition: filter 0.3s ease;
+}
+
+.certificate-image:hover {
+  filter: brightness(0.95) contrast(1.1);
 }
