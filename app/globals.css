@@ -112,3 +112,17 @@
 .certificate-image:hover {
   filter: brightness(0.95) contrast(1.1);
 }
+
+.scroll-down {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.3s ease;
+}
+
+.scroll-down:hover {
+  transform: translateX(-50%) scale(1.1);
+}
