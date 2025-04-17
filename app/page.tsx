@@ -230,7 +230,7 @@ export default function Home() {
                 href="SaiGawand_Cybersecurity_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                View="Sai_Gawand_Resume.pdf"
+                href="public/SaiGawand_Cybersecurity_Resume.pdf"
                 className="inline-flex items-center px-6 py-3 bg-primary text-black rounded-lg hover:bg-secondary"
               >
                 <Eye className="w-5 h-5 mr-2" /> View CV
