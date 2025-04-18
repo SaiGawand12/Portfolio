@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { useEffect, useState, useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, useInView } from 'framer-motion';
 import { TypeAnimation } from 'react-type-animation';
 import { getGithubUser, getGithubRepos } from '@/lib/github';
 import { Terminal, Github, ExternalLink, Code2, Download, Linkedin, Twitter, Mail, BookOpen, Cpu, Menu, X, Eye, Briefcase } from 'lucide-react';
@@ -97,6 +97,24 @@ const certificates = [
   },
 ];
 
+function Section({ children, id, className = "" }) {
+  const ref = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-20%" });
+  
+  return (
+    <motion.section
+      id={id}
+      ref={ref}
+      initial={{ opacity: 0, y: 50 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.8, ease: "easeOut" }}
+      className={className}
+    >
+      {children}
+    </motion.section>
+  );
+}
+
 export default function Home() {
   const [user, setUser] = useState<any>(null);
   const [repos, setRepos] = useState<any[]>([]);
@@ -159,9 +177,20 @@ export default function Home() {
     { id: 'contact', label: 'CONTACT' }
   ];
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   return (
     <>
-      {/* Navigation */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-1 bg-primary z-50 origin-left"
+        style={{ scaleX }}
+      />
+      
       <nav className="fixed top-0 left-0 right-0 bg-black/50 backdrop-blur-sm z-50 border-b border-primary/20">
         <div className="max-w-6xl mx-auto px-4">
           <div className="flex items-center justify-between h-16">
@@ -170,7 +199,6 @@ export default function Home() {
               <span className="text-primary neon-text font-bold">CYBER_DEV</span>
             </button>
 
-            {/* Desktop Navigation */}
             <div className="hidden md:flex space-x-8">
               {navigationItems.map((item) => (
                 <button
@@ -185,7 +213,6 @@ export default function Home() {
               ))}
             </div>
 
-            {/* Mobile Menu Button */}
             <button 
               className="md:hidden text-primary"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -194,7 +221,6 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Mobile Navigation */}
           {isMenuOpen && (
             <motion.div 
               initial={{ opacity: 0, y: -20 }}
@@ -221,14 +247,8 @@ export default function Home() {
       </nav>
 
       <main className="min-h-screen pt-20 p-8">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-6xl mx-auto"
-        >
-          {/* Hero Section */}
-          <section id="home" className="relative mb-16 text-center min-h-screen flex flex-col justify-center">
+        <div className="max-w-6xl mx-auto">
+          <Section id="home" className="relative mb-16 text-center min-h-screen flex flex-col justify-center">
             <Background3D />
             <motion.h1
               className="text-6xl font-bold mb-4 neon-text glitch"
@@ -258,7 +278,6 @@ export default function Home() {
               />
             </motion.div>
             
-            {/* Social Links */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -279,7 +298,6 @@ export default function Home() {
               </a>
             </motion.div>
 
-            {/* Download CV Button */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -296,7 +314,6 @@ export default function Home() {
               </a>
             </motion.div>
 
-            {/* Scroll Down Arrow */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -334,17 +351,15 @@ export default function Home() {
                 <div className="absolute inset-0 animate-pulse bg-primary/20 rounded-full filter blur-xl group-hover:bg-secondary/20 transition-colors"></div>
               </motion.div>
             </motion.div>
-          </section>
+          </Section>
 
-          {/* About Section */}
-          <section id="about" className="mb-16">
+          <Section id="about" className="mb-16">
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.8 }}
               className="grid grid-cols-1 md:grid-cols-2 gap-8"
             >
-              {/* Profile Picture and Bio */}
               <div className="bg-card p-8 rounded-lg neon-border">
                 <div className="flex flex-col items-center">
                   {user?.avatar_url && (
@@ -362,9 +377,7 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* Skills and Education */}
               <div className="space-y-8">
-                {/* Skills */}
                 <div className="bg-card p-8 rounded-lg neon-border">
                   <div className="flex items-center mb-6">
                     <Cpu className="w-6 h-6 mr-2 text-primary" />
@@ -388,7 +401,6 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Education */}
                 <div className="bg-card p-8 rounded-lg neon-border">
                   <div className="flex items-center mb-6">
                     <BookOpen className="w-6 h-6 mr-2 text-primary" />
@@ -407,10 +419,9 @@ export default function Home() {
                 </div>
               </div>
             </motion.div>
-          </section>
+          </Section>
 
-          {/* Experience Section */}
-          <section id="experience" className="mb-16">
+          <Section id="experience" className="mb-16">
             <h2 className="text-3xl font-bold mb-8 neon-text">
               <Briefcase className="inline mr-2" />
               Experience
@@ -419,9 +430,10 @@ export default function Home() {
               {experiences.map((exp, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -50 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   transition={{ delay: 0.2 * index }}
+                  viewport={{ once: true }}
                   className="bg-card p-6 rounded-lg hover:neon-border transition-all duration-300"
                 >
                   <h3 className="text-xl font-bold text-primary">{exp.title}</h3>
@@ -435,10 +447,9 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
-          </section>
+          </Section>
 
-          {/* Projects Section */}
-          <section id="projects" className="mb-16">
+          <Section id="projects" className="mb-16">
             <h2 className="text-3xl font-bold mb-8 neon-text">
               <Code2 className="inline mr-2" />
               Latest Projects
@@ -447,9 +458,10 @@ export default function Home() {
               {repos.slice(0, visibleRepos).map((repo, index) => (
                 <motion.div
                   key={repo.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 * index }}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.1 * index }}
+                  viewport={{ once: true }}
                   className="bg-card p-6 rounded-lg hover:neon-border transition-all duration-300"
                 >
                   <h3 className="text-xl font-bold mb-2">{repo.name}</h3>
@@ -459,9 +471,7 @@ export default function Home() {
                       <Github className="w-4 h-4 mr-1" />
                       <span>{repo.stargazers_count} stars</span>
                     </div>
-                    {/* Links */}
                     <div className="flex space-x-4">
-                      {/* Live Demo Button (If Available) */}
                       {repo.homepage && (
                         <a href={repo.homepage} target="_blank" rel="noopener noreferrer" className="flex items-center space-x-1 text-green-400 hover:text-green-300 transition-all">  
                           <ExternalLink className="w-4 h-4" />
@@ -482,7 +492,6 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
-
             {visibleRepos < repos.length && (
               <motion.button
                 onClick={loadMore}
@@ -491,18 +500,18 @@ export default function Home() {
                 Load More
               </motion.button>
             )}
-          </section>
+          </Section>
 
-          {/* Certificates */}
-          <section id="certificates" className="mb-16">
+          <Section id="certificates" className="mb-16">
             <h2 className="text-3xl font-bold mb-8 neon-text">Certifications</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {certificates.map((cert, index) => (
                 <motion.div
                   key={index}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2 * index }}
+                  viewport={{ once: true }}
                   className="bg-card p-6 rounded-lg hover:neon-border transition-all duration-300"
                 >
                   <h3 className="text-xl font-bold">{cert.title}</h3>
@@ -515,16 +524,9 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
-          </section>
+          </Section>
 
-          {/* Contact Section */}
-          <motion.section
-            id="contact"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="text-center"
-          >
+          <Section id="contact" className="text-center">
             <h2 className="text-3xl font-bold mb-8 neon-text">Get In Touch</h2>
             <div className="flex justify-center space-x-6">
               <button
@@ -544,11 +546,10 @@ export default function Home() {
                 GitHub Profile
               </a>
             </div>
-          </motion.section>
-        </motion.div>
+          </Section>
+        </div>
       </main>
 
-      {/* Footer */}
       <footer className="border-t border-cyan-500/20 py-8 text-center text-gray-400">
         <p>© 2025 Sai Gawand • All rights reserved</p>
         <p>
