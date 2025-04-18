@@ -287,7 +287,7 @@ export default function Home() {
               className="mt-8"
             >
               <a
-                href="SaiGawand_Cybersecurity_Resume.pdf"
+                href="SAI_GAWAND_RESUME.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center px-6 py-3 bg-primary text-black rounded-lg hover:bg-secondary transition-colors"
