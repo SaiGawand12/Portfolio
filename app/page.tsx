@@ -97,7 +97,7 @@ const certificates = [
   },
 ];
 
-function Section({ children, id, className = "" }) {
+function Section({ children, id, className }: { children: React.ReactNode, id: string, className: string }) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-20%" });
   
