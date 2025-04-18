@@ -98,7 +98,13 @@ const certificates = [
   },
 ];
 
-function Section({ children }: { children: React.ReactNode, id: string, className: string }) {
+interface SectionProps {
+  children: React.ReactNode;
+  id: string;
+  className?: string;
+}
+
+function Section({ children, id, className = "" }: SectionProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-20%" });
   
