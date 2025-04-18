@@ -7,7 +7,11 @@ import * as random from 'maath/random';
 
 function StarField() {
   const ref = useRef<any>();
-  const positions = random.inSphere(new Float32Array(5000), { radius: 1.5 });
+  
+  // Create a Float32Array with the correct size for xyz coordinates
+  const sphere = new Float32Array(5000 * 3);
+  // Generate random positions within a sphere
+  random.inSphere(sphere, { radius: 1.5 });
 
   useFrame((state, delta) => {
     if (ref.current) {
@@ -18,7 +22,7 @@ function StarField() {
 
   return (
     <group rotation={[0, 0, Math.PI / 4]}>
-      <Points ref={ref} positions={positions} stride={3} frustumCulled={false}>
+      <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
         <PointMaterial
           transparent
           color="#00ffff"
