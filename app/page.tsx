@@ -21,6 +21,7 @@ const skills = [
   { name: "AR/VR", level: 85 },
   { name: "Ethical Hacking", level: 90 },
   { name: "Node.js", level: 95 },
+  { name: "Next.js", level: 98 },
   { name: "TypeScript", level: 95 },
   { name: "Python", level: 90 },
 ];
@@ -36,28 +37,16 @@ const education = [
 
 const experiences = [
   {
-    title: "Cybersecurity Intern",
-    company: "CodeAlpha",
-    period: "Apr 2025 - Present",
+    title: "AI in Healthcare Intern ",
+    company: "Dhee Centre for AI and Data Science   ",
+    period: "June 2025",
     description: [
-      "Conducted vulnerability assessments and penetration testing on web applications",
-      "Implemented security monitoring solutions using SIEM tools",
-      "Developed security awareness training materials for employees",
-      "Assisted in incident response and threat hunting activities"
+      "Completed a comprehensive internship focused on AI applications in healthcare.",
+      "Gained hands-on experience with machine learning and data science techniques for medical data analysis.",
+      " Worked under the guidance of faculty from the School of Computer Science and Engineering (SoCSE)",
+      "Delivered satisfactory performance as evaluated by the centre’s director and faculty."
     ]
   },
-  {
-    title: "Web Development Intern",
-    company: "CodSoft",
-    period: "Apr 2025 - Present",
-    description: [
-      "Developing and improving responsive web applications using HTML, CSS, JavaScript, and React.",
-      " Implementing modern UI/UX designs and ensuring cross-browser compatibility.",
-      " Working on real-world projects, including frontend development and API integration.",
-      "Collaborating with a team to build scalable and efficient web solutions.",
-      "Gaining hands-on experience with Git, GitHub, and deployment processes."
-    ]
-  }
 ];
 
 const certificates = [
